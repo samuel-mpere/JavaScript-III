@@ -77,3 +77,10 @@ console.log(portal);
 // Principle 4
 
 // code example for Explicit Binding
+function baz(name, age) {
+    console.log(this); 
+    return name + ' your age is ' + age; 
+  }
+  
+  baz.call('banana', 'Shaun', 35); 
+  
