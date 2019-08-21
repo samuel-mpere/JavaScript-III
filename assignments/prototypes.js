@@ -46,6 +46,45 @@
   - Give persons the ability to poop.
   - When pooping, the stomach should empty.
 
+*/
+
+function Person (name, age){
+  this.name = name;
+  this.age = age;
+  this.canEatEdibles = true;
+  this.canPoop = true;
+  this.stomach = [];
+}
+
+Person.prototype.greet = function () {
+  return `Hello everyone my name is ${this.name} and I am ${this.age} years old`;
+}
+Person.prototype.feast = function (edible){
+  if(this.canEatEdibles){
+    this.stomach.push(edible);
+  }
+}
+
+Person.prototype.digest = function (edible){
+  if(this.canPoop){
+    this.stomach = [];
+  }
+}
+
+
+
+const loki = new Person('Babaloki', 30);
+
+console.log(loki.name);
+console.log(loki.age);
+console.log(loki.canEatEdibles);
+console.log(loki.greet());
+loki.feast('beans');
+// console.log(loki.digest('beans'));
+
+
+/*
+
   TASK 2
 
   - Build a Car constructor that takes model name and make.
@@ -56,12 +95,98 @@
   - Give cars the ability to be repaired.
   - A repaired car can be driven again.
 
+  */
+
+function Car(name, make){
+  this.name = name;
+  this.make = make;
+  this.distance = 0;
+  this.isAbleToMove = true;
+  this.crash = true;
+  this.repair = true;
+}
+
+
+Car.prototype.odometer = function(miles){ 
+  if (this.isAbleToMove){
+    this.distance + miles;
+  }
+}
+
+Car.prototype.immobilized = function(){
+  if(this.crash){
+    return `I crashed at ${this.odometer.miles} miles!`
+  }
+}
+
+Car.prototype.redrive = function(){
+  if(this.repair){
+    this.isAbleToMove;
+  }
+}
+/*
+
   TASK 3
 
   - Build a Baby constructor that subclasses the Person built earlier.
   - Babies of course inherit the ability to greet, which can be strange.
   - Babies should have the ability to play, which persons don't.
   - By playing, a string is returned with some text of your choosing.
+
+
+
+function Person (name, age){
+  this.name = name;
+  this.age = age;
+  this.canEatEdibles = true;
+  this.canPoop = true;
+  this.stomach = [];
+}
+
+Person.prototype.greet = function () {
+  return `Hello everyone my name is ${this.name} and I am ${this.age} years old`;
+}
+Person.prototype.feast = function (edible){
+  if(this.canEatEdibles){
+    this.stomach.push(edible);
+  }
+}
+
+Person.prototype.digest = function (edible){
+  if(this.canPoop){
+    this.stomach = [];
+  }
+}
+
+*/
+
+// var SubClass = function(value) {  
+//   SuperClass.call(this, value);
+//   this.prop2 = 100;
+// };
+// SubClass.prototype = Object.create(SuperClass.prototype);  
+// SubClass.prototype.constructor = SubClass;  
+// SubClass.prototype.superMethod = function() {  
+//   console.log('This is a super method on sub.');
+// };
+// SubClass.prototype.subMethod = function() {  
+//   console.log('This is a sub method.');
+// };
+
+let Baby = function(name, age ){
+  Person.call(this, name, age);
+}
+
+Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play = function(){
+  console.log (`I love to play with legos`);
+}
+
+let offspring = new Baby('Stewie', 2);
+
+
+/*
+
 
   TASK 4
 
