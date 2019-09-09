@@ -36,7 +36,6 @@
 */
 
 /*
-
   TASK 1
 
   - Build a Person Constructor that takes name and age.
@@ -45,7 +44,34 @@
   - When eating an edible, it should be pushed into a "stomach" property which is an array.
   - Give persons the ability to poop.
   - When pooping, the stomach should empty.
+*/
 
+function Person (name, age){
+  this.name = name;
+  this.age = age;
+  this.canEatEdibles = true;
+  this.canPoop = true;
+  this.stomach = [];
+}
+
+Person.prototype.greet = function () {
+  return `Hello everyone my name is ${this.name} and I am ${this.age} years old`;
+}
+Person.prototype.feast = function (edible){
+  if(this.canEatEdibles){
+    this.stomach.push(edible);
+  }
+}
+
+Person.prototype.digest = function (edible){
+  if(this.canPoop){
+    this.stomach = [];
+  }
+}
+
+const loki = new Person('Babaloki', 30);
+
+/*
   TASK 2
 
   - Build a Car constructor that takes model name and make.
@@ -55,14 +81,66 @@
   - A crashed car can't be driven any more. Attempts return a string "I crashed at x miles!", x being the miles in the odometer.
   - Give cars the ability to be repaired.
   - A repaired car can be driven again.
+  */
 
+function Car(name, make){
+  this.name = name;
+  this.make = make;
+  this.distance = 0;
+  this.isAbleToMove = true;
+  this.odometer = 0;
+  this.crash = true;
+}
+
+Car.prototype.driveDistance = function(distance){ 
+  if (this.isAbleToMove){
+    return this.odometer += distance;
+  } //else (!this.isAbleToMove)
+    //return `I crashed my car at ${distance} miles`;
+  }
+
+  Car.prototype.crashed = function (distance){
+    if(this.crash){
+      return `I crashed my car at ${distance} miles`;
+    }
+  }
+
+Car.prototype.immobilized = function(){
+  this.isAbleToMove = false;
+}
+
+Car.prototype.redrive = function(){
+  this.isAbleToMove = true;
+  }
+
+
+let sportsCar = new Car('lamborghini', 'aventandor');
+
+
+
+/*
   TASK 3
 
   - Build a Baby constructor that subclasses the Person built earlier.
   - Babies of course inherit the ability to greet, which can be strange.
   - Babies should have the ability to play, which persons don't.
   - By playing, a string is returned with some text of your choosing.
+*/
 
+let Baby = function(name, age ){
+  Person.call(this, name, age);
+}
+
+Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play = function(){
+
+ return 'I love to play with legos';
+}
+
+let offspring = new Baby('Stewie', 2);
+
+
+/*
   TASK 4
 
   Use your imagination and come up with constructors that allow to build objects
